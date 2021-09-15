@@ -2,7 +2,7 @@ using System;
 
 namespace binary_heap
 {
-    class MinHeap<T> where T : IComparable
+    class MinHeap<T> where T : IComparable, IFormattable
     {
         T[] data;
         int size_of_heap;
@@ -110,6 +110,24 @@ namespace binary_heap
             data[1] = data[size_of_heap];
             size_of_heap--;
             HeapifyDown(1);
+        }
+
+        public override string ToString()
+        {
+            return Print(1);
+        }
+
+        string Spacing(int x)
+        {
+            return String.Concat(System.Linq.Enumerable.Repeat("    ", x));
+        }
+
+        // pre order print i guess
+        string Print(int i)
+        {
+            if (i > size_of_heap)
+                return "";
+            return "\n" + Spacing(i / 2) + data[i].ToString() + Print(i * 2) + Print(i * 2 + 1);
         }
     }
 }
