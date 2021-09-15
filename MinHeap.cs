@@ -80,16 +80,35 @@ namespace binary_heap
         // moves element down
         void HeapifyDown(int i)
         {
+            // // ! DEBUG
+            // Program.PrettyOutput("(" + i + ")", this);
             int left = i * 2;
             int right = left + 1;
             int smallest = i;
+            int smallestchild = left;
 
-            // we have left child and its less than current
-            if (left <= size_of_heap && data[left].CompareTo(data[i]) == -1)
-                smallest = left;
-            // or we have right child and its less than current
-            else if (right <= size_of_heap && data[right].CompareTo(data[i]) == -1)
-                smallest = right;
+            // if we has no childs
+            if (left > size_of_heap)
+                return;
+            // if we have only left
+            if (right > size_of_heap)
+                if (data[left].CompareTo(data[i]) == -1)
+                {
+                    Swap(ref data[left], ref data[i]);
+                    return;
+                }
+            // we have left and right
+            if (data[right].CompareTo(data[left]) == -1)
+                smallestchild = right;
+
+            if (data[smallestchild].CompareTo(data[i]) == -1)
+                smallest = smallestchild;
+            // // we have left child and its less than current
+            // if (left <= size_of_heap && data[left].CompareTo(data[i]) == -1)
+            //     smallest = left;
+            // // or we have right child and its less than current
+            // else if (right <= size_of_heap && data[right].CompareTo(data[i]) == -1)
+            //     smallest = right;
 
             // if i == smallest recursion ends
             if (smallest != i)
