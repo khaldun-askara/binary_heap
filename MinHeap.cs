@@ -114,12 +114,25 @@ namespace binary_heap
 
         public override string ToString()
         {
-            return Print(1);
+            return data[1].ToString() + Print(2) + Print(3);
+            // string res = default(string);
+            // foreach (T elem in data)
+            //     res += "   " + elem.ToString();
+
+            // return res;
+        }
+
+        public string ToStringArray()
+        {
+            string res = default(string);
+            for (int i = 1; i <= size_of_heap; i++)
+                res += "   " + data[i].ToString();
+            return res;
         }
 
         string Spacing(int x)
         {
-            return String.Concat(System.Linq.Enumerable.Repeat("    ", x));
+            return String.Concat(System.Linq.Enumerable.Repeat("  ", x));
         }
 
         // pre order print i guess
@@ -127,7 +140,9 @@ namespace binary_heap
         {
             if (i > size_of_heap)
                 return "";
-            return "\n" + Spacing(i / 2) + data[i].ToString() + Print(i * 2) + Print(i * 2 + 1);
+
+            int number_of_spaces = (int)Math.Truncate(Math.Log((double)i, 2.0)) - 1;
+            return "\n" + Spacing(number_of_spaces) + "└─" + data[i].ToString() + Print(i * 2) + Print(i * 2 + 1);
         }
     }
 }
