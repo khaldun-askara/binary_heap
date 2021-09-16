@@ -4,12 +4,12 @@ namespace binary_heap
 {
     class Program
     {
-        static MinHeap<int> GetRandomIntMinHeap(int size = 10000)
+        static MinHeap<int> GetRandomIntMinHeap(int size = 1000)
         {
             var rand = new Random();
             MinHeap<int> temp_minheap = new MinHeap<int>(size);
             Console.Write("Random numbers: ");
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < size; i++)
             {
                 int temp = rand.Next(1, 20);
                 Console.Write("   " + temp);
@@ -36,9 +36,9 @@ namespace binary_heap
             while (true)
             {
                 // 1. demo 2. manual mode
-                Console.WriteLine("1 — demo, 2 — manual mode, 3 — exit");
+                Console.WriteLine("1. Demo; 2. Manual mode; 3. Random; 4. Exit.");
                 answer = Console.ReadLine();
-                if (answer == "3")
+                if (answer == "4")
                     break;
                 // demo:
                 if (answer == "1")
@@ -77,6 +77,9 @@ namespace binary_heap
                     temp = new Random().Next(1, 20);
                     test_heap.Add(temp);
                     PrettyOutput("Added element: " + temp, test_heap);
+
+                    MinHeap<int> bigheap = GetRandomIntMinHeap();
+                    PrettyOutput("Big heap", bigheap);
                 }
                 // manual mode:
                 if (answer == "2")
@@ -114,7 +117,38 @@ namespace binary_heap
                         }
                     }
                 }
+                // random
+                if (answer == "3")
+                {
+                    Console.WriteLine("Size of heap:");
+                    answer = Console.ReadLine();
 
+                    int size = 0;
+                    Int32.TryParse(answer, out size);
+                    MinHeap<int> temp_minheap = GetRandomIntMinHeap(size);
+                    PrettyOutput("Your heap: ", temp_minheap);
+                    while (true)
+                    {
+                        Console.WriteLine("\n1. Add elem; 2. Get min; 3. Delete min; 4. Exit.");
+                        answer = Console.ReadLine();
+                        if (answer == "4")
+                            break;
+                        if (answer == "1")
+                        {
+                            Console.WriteLine("Element:");
+                            int element = Int32.Parse(Console.ReadLine());
+                            temp_minheap.Add(element);
+                            PrettyOutput("Element added", temp_minheap);
+                        }
+                        if (answer == "2")
+                            Console.WriteLine("Min: " + temp_minheap.GetMin());
+                        if (answer == "3")
+                        {
+                            temp_minheap.DeleteMin();
+                            PrettyOutput("Min deleted", temp_minheap);
+                        }
+                    }
+                }
             }
         }
 
